@@ -8,6 +8,11 @@ public class Dictionary {
         this.listDictionary = list;
     }
 
+    public Dictionary() {
+        ArrayList<Word> list = new ArrayList<>();
+        this.listDictionary = list;
+    }
+
     public int getSize() {
         return size;
     }
@@ -18,13 +23,23 @@ public class Dictionary {
         size ++;
     }
 
-    public String wordAt(int index) {
+    public void add(int index, Word word) {
+        listDictionary.add(index, word);
+        size ++;
+    }
+
+    public String wordTargetAt(int index) {
         return listDictionary.get(index).getWord_target();
     }
 
     public String meansAt(int index) {
         return listDictionary.get(index).getWord_explain();
     }
+
+    public Word wordAt(int index) {
+        return listDictionary.get(index);
+    }
+
 
     // ham in ra thong tin cua mot word
     public void showWord(int index) {

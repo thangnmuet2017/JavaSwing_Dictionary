@@ -22,4 +22,17 @@ public class Word {
     public void setWord_explain(String word_explain) {
         this.word_explain = word_explain;
     }
+
+    public boolean compareTo( Word word) {
+        int x = this.word_target.compareTo( word.word_target );
+        if (x > 0) return true;
+        return false;
+    }
+
+    public boolean equare( String s){
+        for (int i=0; i<s.length(); i++) {
+            if( word_target.charAt(i) != s.charAt(i) ) return false;
+        }
+        return true;
+    }
 }
