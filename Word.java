@@ -29,10 +29,20 @@ public class Word {
         return false;
     }
 
-    public boolean equare( String s){
-        for (int i=0; i<s.length(); i++) {
-            if( word_target.charAt(i) != s.charAt(i) ) return false;
+    public boolean contains( String s){
+        int sizeS = s.length();
+        int sizeW = word_target.length();
+        if( sizeS > sizeW) return false;
+        else {
+            String smallWord = word_target.substring(0, sizeS);
+            return smallWord.equalsIgnoreCase(s);
         }
-        return true;
+//        try {
+//            String smallWord = word_target.substring(0, sizeS);
+//            return smallWord.equalsIgnoreCase(s);
+//        } catch (Exception e) {
+//            return false;
+//        }
+
     }
 }

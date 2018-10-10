@@ -41,9 +41,8 @@ public class DictionaryManagement {
     them tu dong thoi sap xep theo thu tu abc
  */
     public void insertFromFile(Dictionary dictionary) throws IOException {
-        Scanner scanFile = new Scanner(Paths.get("C:\\Users\\Huu Tri\\IdeaProjects\\Dictionary_3.0\\new Dictionary.txt"),
-                "UTF-8");
-        while ( scanFile.hasNextLine()) {
+        Scanner scanFile = new Scanner(Paths.get("new Dictionary.txt"), "UTF-8");
+        while ( scanFile.hasNext() ) {
             String targetWord = scanFile.next();
             String meansWord = scanFile.nextLine();
             Word word = new Word(targetWord, meansWord);
@@ -67,9 +66,10 @@ public class DictionaryManagement {
         }
         return "    Sorry! khong tim thay tu do";
     }
+
     // ham xuat du lieu tu dien ra file
     public void dictionaryExportToFile(Dictionary dictionary) throws FileNotFoundException, UnsupportedEncodingException {
-        PrintWriter printWriter = new PrintWriter("new Dictoinary.txt", "UTF-8");
+        PrintWriter printWriter = new PrintWriter("new Dictionary.txt", "UTF-8");
         for(int i=0; i < dictionary.getSize(); i++) {
             printWriter.println(dictionary.wordTargetAt(i) + dictionary.meansAt(i)   );
         }

@@ -4,9 +4,6 @@ public class Dictionary {
     private ArrayList<Word> listDictionary;
     private int size = 0;
 
-    public Dictionary(ArrayList<Word> list) {
-        this.listDictionary = list;
-    }
 
     public Dictionary() {
         ArrayList<Word> list = new ArrayList<>();

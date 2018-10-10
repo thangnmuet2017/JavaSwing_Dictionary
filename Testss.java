@@ -13,7 +13,7 @@ public class Testss {
         DictionaryManagement management = new DictionaryManagement();
         DictionaryCommandline commandline = new DictionaryCommandline();
 
-        management.insertFromFile(dictionary);
+        management.insertFromFile(dictionary); // lay du lieu tu file "new Dictionary"
 
         // bat dau
         System.out.println("Tra tu : 1 \n" +
@@ -29,6 +29,7 @@ public class Testss {
                 String s = scanner.next();
                 Dictionary dictionary1 = commandline.dictionarySearcher(s, dictionary);
                 commandline.showAllWords(dictionary1);
+
             } else if (chose.equals("2")) {
                 management.insertFromCommandline(dictionary);
             } else if (chose.equals("3")) {
