@@ -5,13 +5,34 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class DictionaryManagement {
-     Scanner scanner = new Scanner(System.in);
+    Scanner scanner = new Scanner(System.in);
+     // phuong thuc lay ve chi so de them word vao dictionary theo thu tu abc
+    static int getAddedIndex(Dictionary dict, Word word, int beginIndex, int endIndex) {
+        // neu word xep sau tu dung o vi tri endIndex trong tu dien
+        if ( !dict.wordAt(endIndex).compareTo(word) ) { 
+             return endIndex + 1;
+        }
+        // neu word xep truoc tu dung o vi tri beginIndex trong tu dien
+        if ( dict.wordAt(beginIndex).compareTo(word) ) {
+             return beginIndex;
+        }
+        int mid = (beginIndex + endIndex)/2;
+        // neu word dung sau dict[mid]
+        if ( !dict.wordAt(mid).compareTo(word) ) {
+             return getAddedIndex(dict, word, mid + 1, endIndex);
+        }
+        // neu word dung truoc dict[mid]
+        else {
+            return getAddedIndex(dict, word, beginIndex, mid - 1);
+        }
+    }
+
 
 /*
     ham them word tu ban phim
     ham nay da cai tien ( them va sap xep theo thu tu abc..)
  */
-    public void insertFromCommandline(Dictionary dictionary){
+    public void insertFromCommandline(Dictionary dictionary) {
         System.out.print("Hay nhap tu moi: ");
         String newWord = scanner.next();
         System.out.print("Hay nhap nghia cua tu do: ");
@@ -19,17 +40,9 @@ public class DictionaryManagement {
         String meaningWord = scanner.nextLine();
 
         Word word = new Word(newWord, meaningWord);
-        boolean added = false;
-        // sua cho nay thanh binary search
-        for (int i = dictionary.getSize(); i>=1 ; i--) {
-            if ( word.compareTo( dictionary.wordAt(i-1) ) ) {
-                dictionary.add(i, word);
-                added = true;
-                break;
-            }
-        }
-        if( !added ) dictionary.add(0, word);
-
+        int dict_size = dictionary.getSize();
+        int addedIndex = getAddedIndex(dictionary, word, 0, dict_size - 1);
+        dictionary.add(addedIndex, word);
         System.out.println("------------------------");
     }
 
@@ -82,3 +95,4 @@ public class DictionaryManagement {
        
     }
 }
+

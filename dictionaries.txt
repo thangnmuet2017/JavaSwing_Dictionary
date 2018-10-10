@@ -1,4 +1,6 @@
 Aquarius	(n) cung Bao Binh
+South	(n) huong Nam
+West	(n) huong Tay
 abacus	(n) ban tinh
 appear	(v) xuat hien
 apple	(n) qua tao
@@ -20,8 +22,10 @@ book	(n) quyen sach
 borrow	(adj) vay muon
 bubble	(n) bong bong
 cat	(n) con meo
+cool	(adj) mat
 cute	(adj) dang yeu
 desk	(n) ban hoc
+fire	(n) ngon lua
 flower	(n) hoa
 string	(n) xau ki tu
 throw	(v) nem

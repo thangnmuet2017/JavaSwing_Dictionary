@@ -26,8 +26,8 @@ public class Cmd_Dictionary_2 {
                 case 1: 
                     System.out.print("Nhap tu muon tra : ");
                     String s = scanner.next();
-                    Dictionary dictionary1 = commandline.dictionarySearcher(s, dictionary);
-                    commandline.showAllWords(dictionary1);
+                    Dictionary sub_dictionary = commandline.dictionarySearcher(s, dictionary);
+                    commandline.showAllWords(sub_dictionary);
                     break;
                 case 2:
                     management.insertFromCommandline(dictionary);
