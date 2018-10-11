@@ -14,7 +14,9 @@ public class Cmd_Dictionary_2 {
         // bat dau
         System.out.println("1. Tra tu");
         System.out.println("2. Them tu");
-        System.out.println("3. In ra toan bo cac tu");
+        System.out.println("3. Sua doi tu");
+        System.out.println("4. Xoa tu");
+        System.out.println("5. In ra toan bo cac tu");
         System.out.println("0. Ket thuc");
         System.out.println(">>>>>>>>>>***<<<<<<<<<<");
         int continueProgram = -1;
@@ -22,6 +24,7 @@ public class Cmd_Dictionary_2 {
             int option = -1;
             System.out.print("Nhap vao lua chon cua ban: ");
             option = scanner.nextInt();
+            scanner.nextLine();
             switch(option) {
                 case 1: 
                     System.out.print("Nhap tu muon tra : ");
@@ -33,6 +36,12 @@ public class Cmd_Dictionary_2 {
                     management.insertFromCommandline(dictionary);
                     break;
                 case 3:
+                    management.changeFromCommandline(dictionary);
+                    break;
+                case 4: 
+                    management.removeWord(dictionary);
+                    break;
+                case 5:
                     commandline.showAllWords(dictionary);
                     break;
                 case 0:

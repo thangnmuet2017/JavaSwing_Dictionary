@@ -6,26 +6,28 @@ appear	(v) xuat hien
 apple	(n) qua tao
 application	(n) ung dung
 apply	(v) ap dung
-bad	(adj) te
 bag	(n) cai tui
 balcony	(n) lan can
-bald	(adj) hoi dau
 ball	(n) qua bong
 bar	(n) thanh ngang
-bat	(n) con doi
 bed	(n) giuong ngu
-bee	(n) con ong
 beg	(v) van xin
 big	(adj) to lon
 bill	(n) hoa don
 book	(n) quyen sach
 borrow	(adj) vay muon
+boy	(n) cau nhoc
 bubble	(n) bong bong
 cat	(n) con meo
 cool	(adj) mat
-cute	(adj) dang yeu
 desk	(n) ban hoc
-fire	(n) ngon lua
+draw	(v) ve
+duck	(n) con vit
+elephant	(n) con voi
 flower	(n) hoa
+laptop	(n) may tinh xach tay
+lovely	(adj) dang yeu
 string	(n) xau ki tu
-throw	(v) nem
+throw	(v) nem, vat
+ugly	(adj) xau xi
+wind	(n) gio

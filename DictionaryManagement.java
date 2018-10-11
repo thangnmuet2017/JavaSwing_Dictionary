@@ -6,6 +6,29 @@ import java.util.Scanner;
 
 public class DictionaryManagement {
     Scanner scanner = new Scanner(System.in);
+    
+    // phuong thuc tra ve chi so cua mot tu tieng Anh nao do
+    // trong danh sach cac tu tieng Anh cua dictionary
+    static int getWordIndex(Dictionary dict, String search_word) {
+        int dict_size = dict.getSize();
+        int left = 0, right = dict_size - 1;
+        // binary search
+        while (left <= right) {
+            int mid = (left + right)/2;
+            String match_word = dict.wordAt(mid).getWord_target();
+            int compare = match_word.compareTo(search_word);
+            if (compare == 0) {
+                return mid;
+            }
+            else if (compare > 0) {
+                right = mid - 1;
+            }
+            else left = mid + 1;
+        }
+        // neu nhu khong tim thay word trong dictionary thi tra ve -1
+        return -1;
+    }
+    
      // phuong thuc lay ve chi so de them word vao dictionary theo thu tu abc
     static int getAddedIndex(Dictionary dict, Word word, int beginIndex, int endIndex) {
         // neu word xep sau tu dung o vi tri endIndex trong tu dien
@@ -29,12 +52,17 @@ public class DictionaryManagement {
 
 
 /*
-    ham them word tu ban phim
-    ham nay da cai tien ( them va sap xep theo thu tu abc..)
+    phuong thuc them word tu ban phim
+    da cai tien ( them va sap xep theo thu tu abc..)
  */
     public void insertFromCommandline(Dictionary dictionary) {
         System.out.print("Hay nhap tu moi: ");
         String newWord = scanner.next();
+        int matchIndex = getWordIndex(dictionary, newWord);
+        if (matchIndex != -1) {
+            System.out.println("Trong tu dien da co tu do!");
+            return;
+        }
         System.out.print("Hay nhap nghia cua tu do: ");
         scanner.nextLine(); 
         String meaningWord = scanner.nextLine();
@@ -69,16 +97,86 @@ public class DictionaryManagement {
         }
     }
     
-    // tra tu tuyet doi (chi cho ra 1 tu duy nhat)
-    public String dictionaryLookup(String word ,Dictionary dictionary) {
-        int size = dictionary.getSize();
-        // sua thanh binary search
-        for (int i = 0; i < size; i++) {
-            if( word.equalsIgnoreCase(dictionary.wordTargetAt(i)) ) {
-                return dictionary.meaningAt(i) ;
-            }
+    // phuong thuc sua 1 tu trong tu dien
+    public void changeFromCommandline(Dictionary dictionary) {
+        System.out.print("Nhap tu ban muon sua: ");
+        String changedWord = scanner.next();
+        int matchIndex = getWordIndex(dictionary, changedWord);
+        // neu khong tim thay
+        if (matchIndex == -1) {
+            System.out.println("Tu nay khong co trong danh sach!");
+            return;
         }
-        return "Khong tim thay tu do!";
+        
+        String oldTarget = dictionary.wordTargetAt(matchIndex);
+        String editedTarget = "";
+        int changeTarget = -1, changeExplain = -1;
+        System.out.println("Co thay doi tu goc? (Nhap so khac 0 bat ky de thay doi)");
+        changeTarget = scanner.nextInt();
+        scanner.nextLine(); // doc ki tu enter thua
+        if (changeTarget != 0) {
+            System.out.print("Nhap vao tu moi: ");
+            editedTarget = scanner.next();
+        }
+        System.out.println("Co thay doi tu giai nghia? (Nhap so khac 0 bat ky de thay doi)");
+        changeExplain = scanner.nextInt();
+        scanner.nextLine(); // doc ki tu enter thua
+        if (changeExplain != 0) {
+            System.out.print("Nhap vao giai nghia moi: ");
+            String editedMeaning = scanner.nextLine();
+            dictionary.wordAt(matchIndex).setWord_explain(editedMeaning);
+        }
+        
+        // neu ta thay doi tu goc thi sau khi sua phai sap xep lai tu dien
+        // con neu khong thay doi tu goc thi chi can set lai giai nghia
+        if (changeTarget != 0) {
+            String editedMeaning = dictionary.meaningAt(matchIndex);
+            // luu thay doi sang mot bien tmp_word
+            Word tmp_word = new Word(editedTarget, editedMeaning);
+            // xoa tu cu di
+            removeByKeyWord(dictionary, oldTarget);
+            int addedPos = getAddedIndex(dictionary, tmp_word, 0, dictionary.getSize() - 1);
+            // them tmp_word vao tu dien
+            dictionary.add(addedPos, tmp_word);
+        }
+    }
+    
+    // phuong thuc xoa 1 tu trong tu dien
+    public void removeWord(Dictionary dictionary) {
+        System.out.print("Nhap tu ban muon xoa: ");
+        String removedWord = scanner.next();
+        int matchIndex = getWordIndex(dictionary, removedWord);
+        if (matchIndex == -1) {
+            System.out.println("Tu nay khong co trong danh sach!");
+            return;
+        }
+        dictionary.remove(matchIndex);
+        System.out.println("Da xoa!");
+    }
+    
+    public void removeByKeyWord(Dictionary dictionary, String KeyWord) {
+        int matchIndex = getWordIndex(dictionary, KeyWord);
+        if (matchIndex == -1) {
+            return;
+        }
+        dictionary.remove(matchIndex);
+    }
+    // tra tu tuyet doi (chi cho ra 1 tu duy nhat)
+    public String dictionaryLookup(Dictionary dictionary, String Lookup) {
+        int matchIndex = getWordIndex(dictionary, Lookup);
+        if (matchIndex == -1) {
+            System.out.println("Khong ton tai tu do!");
+            return null;
+        }
+        return dictionary.meaningAt(matchIndex);
+//        int size = dictionary.getSize();
+//        // sua thanh binary search
+//        for (int i = 0; i < size; i++) {
+//            if( word.equalsIgnoreCase(dictionary.wordTargetAt(i)) ) {
+//                return dictionary.meaningAt(i) ;
+//            }
+//        }
+//        return "Khong tim thay tu do!";
     }
     
     // ghi vao file

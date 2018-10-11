@@ -21,15 +21,20 @@ public class Dictionary {
     // them mot tu moi vao tu dien
     public void add( Word word) {
         listDictionary.add(word);
-        size ++;
+        size++;
     }
     
     // them vao mot vi tri cu the
     public void add(int index, Word word) {
         listDictionary.add(index, word);
-        size ++;
+        size++;
     }
     
+    // xoa tu o mot vi tri cu the
+    public void remove(int index) {
+        listDictionary.remove(index);
+        size--;
+    }
     // lay ra tu can giai nghia o vi tri index
     public String wordTargetAt(int index) {
         return listDictionary.get(index).getWord_target();
