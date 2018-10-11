@@ -1,14 +1,12 @@
-Aquarius	(n) cung Bao Binh
-South	(n) huong Nam
-West	(n) huong Tay
 abacus	(n) ban tinh
+america	(n) nuoc My (Hoa Ky)
 appear	(v) xuat hien
 apple	(n) qua tao
 application	(n) ung dung
 apply	(v) ap dung
 bag	(n) cai tui
 balcony	(n) lan can
-ball	(n) qua bong
+ball	(n) qua bong, trai banh
 bar	(n) thanh ngang
 bed	(n) giuong ngu
 beg	(v) van xin
@@ -18,16 +16,16 @@ book	(n) quyen sach
 borrow	(adj) vay muon
 boy	(n) cau nhoc
 bubble	(n) bong bong
-cat	(n) con meo
+cook	(v) nau nuong
 cool	(adj) mat
-desk	(n) ban hoc
 draw	(v) ve
 duck	(n) con vit
 elephant	(n) con voi
 flower	(n) hoa
+go	(v) di
+knife	(n) cai dao
 laptop	(n) may tinh xach tay
-lovely	(adj) dang yeu
-string	(n) xau ki tu
+sad	(adj) buon
 throw	(v) nem, vat
 ugly	(adj) xau xi
 wind	(n) gio

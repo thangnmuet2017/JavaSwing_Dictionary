@@ -32,16 +32,16 @@ public class DictionaryManagement {
      // phuong thuc lay ve chi so de them word vao dictionary theo thu tu abc
     static int getAddedIndex(Dictionary dict, Word word, int beginIndex, int endIndex) {
         // neu word xep sau tu dung o vi tri endIndex trong tu dien
-        if ( !dict.wordAt(endIndex).compareTo(word) ) { 
+        if ( !dict.wordAt(endIndex).isGreaterThan(word) ) { 
              return endIndex + 1;
         }
         // neu word xep truoc tu dung o vi tri beginIndex trong tu dien
-        if ( dict.wordAt(beginIndex).compareTo(word) ) {
+        if ( dict.wordAt(beginIndex).isGreaterThan(word) ) {
              return beginIndex;
         }
         int mid = (beginIndex + endIndex)/2;
         // neu word dung sau dict[mid]
-        if ( !dict.wordAt(mid).compareTo(word) ) {
+        if ( !dict.wordAt(mid).isGreaterThan(word) ) {
              return getAddedIndex(dict, word, mid + 1, endIndex);
         }
         // neu word dung truoc dict[mid]
@@ -58,6 +58,7 @@ public class DictionaryManagement {
     public void insertFromCommandline(Dictionary dictionary) {
         System.out.print("Hay nhap tu moi: ");
         String newWord = scanner.next();
+        newWord = newWord.toLowerCase(); // chuyen ve chu thuong
         int matchIndex = getWordIndex(dictionary, newWord);
         if (matchIndex != -1) {
             System.out.println("Trong tu dien da co tu do!");
@@ -66,7 +67,7 @@ public class DictionaryManagement {
         System.out.print("Hay nhap nghia cua tu do: ");
         scanner.nextLine(); 
         String meaningWord = scanner.nextLine();
-
+        meaningWord = meaningWord.toLowerCase(); // chuyen ve chu thuong
         Word word = new Word(newWord, meaningWord);
         int dict_size = dictionary.getSize();
         int addedIndex = getAddedIndex(dictionary, word, 0, dict_size - 1);
@@ -101,6 +102,7 @@ public class DictionaryManagement {
     public void changeFromCommandline(Dictionary dictionary) {
         System.out.print("Nhap tu ban muon sua: ");
         String changedWord = scanner.next();
+        changedWord = changedWord.toLowerCase();
         int matchIndex = getWordIndex(dictionary, changedWord);
         // neu khong tim thay
         if (matchIndex == -1) {
@@ -139,12 +141,14 @@ public class DictionaryManagement {
             // them tmp_word vao tu dien
             dictionary.add(addedPos, tmp_word);
         }
+        System.out.println("------------------------");
     }
     
     // phuong thuc xoa 1 tu trong tu dien
     public void removeWord(Dictionary dictionary) {
         System.out.print("Nhap tu ban muon xoa: ");
         String removedWord = scanner.next();
+        removedWord = removedWord.toLowerCase();
         int matchIndex = getWordIndex(dictionary, removedWord);
         if (matchIndex == -1) {
             System.out.println("Tu nay khong co trong danh sach!");
@@ -152,8 +156,10 @@ public class DictionaryManagement {
         }
         dictionary.remove(matchIndex);
         System.out.println("Da xoa!");
+        System.out.println("------------------------");
     }
     
+    // phuong thuc xoa 1 tu cu the
     public void removeByKeyWord(Dictionary dictionary, String KeyWord) {
         int matchIndex = getWordIndex(dictionary, KeyWord);
         if (matchIndex == -1) {

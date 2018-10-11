@@ -92,7 +92,7 @@ class Word {
     }
     
     // phuong thuc so sanh 2 Word voi nhau
-    public boolean compareTo( Word word) {
+    public boolean isGreaterThan( Word word) {
         int x = this.word_target.compareTo( word.word_target );
         if (x > 0) return true;
         return false;
