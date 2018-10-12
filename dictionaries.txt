@@ -1,13 +1,14 @@
 abacus	(n) ban tinh
-america	(n) nuoc My (Hoa Ky)
+ape	(n) khi, vuon
 appear	(v) xuat hien
 apple	(n) qua tao
 application	(n) ung dung
 apply	(v) ap dung
 bag	(n) cai tui
 balcony	(n) lan can
-ball	(n) qua bong, trai banh
+Bangkok	(n) thanh pho thu do cua Thai Lan
 bar	(n) thanh ngang
+baseball	(n)bong chay
 bed	(n) giuong ngu
 beg	(v) van xin
 big	(adj) to lon
@@ -15,17 +16,32 @@ bill	(n) hoa don
 book	(n) quyen sach
 borrow	(adj) vay muon
 boy	(n) cau nhoc
+break up	(v) chia tay (nguoi yeu)
 bubble	(n) bong bong
 cook	(v) nau nuong
 cool	(adj) mat
+corner kick	(n) qua phat goc
 draw	(v) ve
-duck	(n) con vit
 elephant	(n) con voi
-flower	(n) hoa
+football	(n) bong da
+fridge	(n) tu lanh
+get up	(n) tinh day
+give up	(v) tu bo
 go	(v) di
-knife	(n) cai dao
+go out	(v) di ra ngoai
+Ha Noi	(n) thu do cua Viet Nam
+ice-cream	(n) kem
 laptop	(n) may tinh xach tay
+look after	(v) cham soc
+look forward	(v) mong doi dieu gi do
+orange	(n) 1. qua cam, 2. mau da cam
 sad	(adj) buon
+support	(v) ho tro
 throw	(v) nem, vat
 ugly	(adj) xau xi
+United Arab Emirates	(n) Cac Tieu Vuong quoc Arap Thong nhat
+United Kingdom	(n) Vuong quoc Anh
+USA	(n) Hop chung quoc Hoa Ky
+VNU	(n) DH Quoc gia Ha Noi
+wake up	(v) thuc day
 wind	(n) gio

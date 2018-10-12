@@ -8,7 +8,6 @@ public class Cmd_Dictionary_2 {
         Dictionary dictionary = new Dictionary();
         DictionaryManagement management = new DictionaryManagement();
         DictionaryCommandline commandline = new DictionaryCommandline();
-
         management.insertFromFile(dictionary); // lay du lieu tu file "dictionaries.txt"
 
         // bat dau
@@ -37,9 +36,7 @@ public class Cmd_Dictionary_2 {
                     System.out.println("------------------");
                     break;
                 case 2: // tra tu mot cach tuong doi
-                    System.out.print("Nhap tu muon tra : ");
-                    String s = scanner.next();
-                    Dictionary sub_dictionary = commandline.dictionarySearcher(s, dictionary);
+                    Dictionary sub_dictionary = commandline.dictionarySearcher(dictionary);
                     commandline.showAllWords(sub_dictionary);
                     break;
                 case 3: // them tu

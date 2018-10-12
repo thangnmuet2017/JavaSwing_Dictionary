@@ -58,14 +58,14 @@ public class DictionaryManagement {
  */
     public void insertFromCommandline(Dictionary dictionary) {
         System.out.print("Hay nhap tu moi: ");
-        String newWord = scanner.next();
+        String newWord = scanner.nextLine();
+        newWord = newWord.trim(); // cat het khoang trang thua
         int matchIndex = getWordIndex(dictionary, newWord);
         if (matchIndex != -1) {
             System.out.println("Trong tu dien da co tu do!");
             return;
         }
         System.out.print("Hay nhap nghia cua tu do: ");
-        scanner.nextLine(); 
         String meaningWord = scanner.nextLine();
         meaningWord = meaningWord.trim();
         Word word = new Word(newWord, meaningWord);
@@ -100,7 +100,8 @@ public class DictionaryManagement {
     // phuong thuc sua 1 tu trong tu dien
     public void changeFromCommandline(Dictionary dictionary) {
         System.out.print("Nhap tu ban muon sua: ");
-        String changedWord = scanner.next();
+        String changedWord = scanner.nextLine();
+        changedWord = changedWord.trim();
         int matchIndex = getWordIndex(dictionary, changedWord);
         // neu khong tim thay
         if (matchIndex == -1) {
@@ -116,7 +117,8 @@ public class DictionaryManagement {
         scanner.nextLine(); // doc ki tu enter thua
         if (changeTarget != 0) {
             System.out.print("Nhap vao tu moi: ");
-            editedTarget = scanner.next();
+            editedTarget = scanner.nextLine();
+            editedTarget = editedTarget.trim();
         }
         System.out.println("Co thay doi tu giai nghia? (Nhap so khac 0 bat ky de thay doi)");
         changeExplain = scanner.nextInt();
@@ -124,6 +126,7 @@ public class DictionaryManagement {
         if (changeExplain != 0) {
             System.out.print("Nhap vao giai nghia moi: ");
             String editedMeaning = scanner.nextLine();
+            editedMeaning = editedMeaning.trim();
             dictionary.wordAt(matchIndex).setWord_explain(editedMeaning);
         }
         
@@ -145,7 +148,8 @@ public class DictionaryManagement {
     // phuong thuc xoa 1 tu trong tu dien
     public void removeWord(Dictionary dictionary) {
         System.out.print("Nhap tu ban muon xoa: ");
-        String removedWord = scanner.next();
+        String removedWord = scanner.nextLine();
+        removedWord = removedWord.trim();
         int matchIndex = getWordIndex(dictionary, removedWord);
         if (matchIndex == -1) {
             System.out.println("Tu nay khong co trong danh sach!");
@@ -168,7 +172,8 @@ public class DictionaryManagement {
     public String dictionaryLookup(Dictionary dictionary) {
         String Lookup = "";
         System.out.print("Nhap chinh xac tu ban can tra: ");
-        Lookup = scanner.next();
+        Lookup = scanner.nextLine();
+        Lookup = Lookup.trim();
         int matchIndex = getWordIndex(dictionary, Lookup);
         if (matchIndex == -1) {
             System.out.println("Khong ton tai tu do!");

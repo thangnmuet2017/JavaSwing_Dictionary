@@ -21,7 +21,11 @@ public class DictionaryCommandline {
     }
 
     // tra tu mot cach tuong doi
-    public Dictionary dictionarySearcher( String s, Dictionary dictionary ) {
+    public Dictionary dictionarySearcher( Dictionary dictionary ) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Nhap tu muon tra : ");
+        String s = scanner.nextLine();
+        s = s.trim();
         Dictionary newDictionary = new Dictionary();
         int size = dictionary.getSize();
         //String toLower = s.toLowerCase();
