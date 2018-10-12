@@ -24,7 +24,7 @@ public class Dictionary {
         size++;
     }
     
-    // them vao mot vi tri cu the
+    // them vao o mot vi tri cu the
     public void add(int index, Word word) {
         listDictionary.add(index, word);
         size++;
@@ -91,9 +91,9 @@ class Word {
         this.word_explain = word_explain;
     }
     
-    // phuong thuc so sanh 2 Word voi nhau
+    // phuong thuc kiem tra word_target co dung sau word khong
     public boolean isGreaterThan( Word word) {
-        int x = this.word_target.compareTo( word.word_target );
+        int x = this.word_target.compareToIgnoreCase( word.word_target );
         if (x > 0) return true;
         return false;
     }
@@ -107,12 +107,6 @@ class Word {
             String smallWord = word_target.substring(0, sizeS);
             return smallWord.equalsIgnoreCase(s);
         }
-//        try {
-//            String smallWord = word_target.substring(0, sizeS);
-//            return smallWord.equalsIgnoreCase(s);
-//        } catch (Exception e) {
-//            return false;
-//        }
 
     }
 }

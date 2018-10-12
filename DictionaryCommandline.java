@@ -24,14 +24,14 @@ public class DictionaryCommandline {
     public Dictionary dictionarySearcher( String s, Dictionary dictionary ) {
         Dictionary newDictionary = new Dictionary();
         int size = dictionary.getSize();
-        String toLower = s.toLowerCase();
+        //String toLower = s.toLowerCase();
         for(int i = 0; i < size; i++ ) {
             Word iter_word = dictionary.wordAt(i);
-            if( iter_word.contains(toLower) ) {
+            if( iter_word.contains(s) ) {
                 newDictionary.add(iter_word);
             }
             else {
-                int compare = iter_word.getWord_target().compareTo(toLower);
+                int compare = iter_word.getWord_target().compareToIgnoreCase(s);
                 if (compare > 0) break;
             }
         }

@@ -6,17 +6,19 @@ import java.util.Scanner;
 
 public class DictionaryManagement {
     Scanner scanner = new Scanner(System.in);
-    
-    // phuong thuc tra ve chi so cua mot tu tieng Anh nao do
-    // trong danh sach cac tu tieng Anh cua dictionary
+/*    
+  phuong thuc tra ve chi so cua mot tu tieng Anh nao do 
+  trong danh sach cac tu tieng Anh cua dictionary
+*/
     static int getWordIndex(Dictionary dict, String search_word) {
+        // tim kiem khong phan biet chu hoa hay chu thuong
         int dict_size = dict.getSize();
         int left = 0, right = dict_size - 1;
         // binary search
         while (left <= right) {
             int mid = (left + right)/2;
             String match_word = dict.wordAt(mid).getWord_target();
-            int compare = match_word.compareTo(search_word);
+            int compare = match_word.compareToIgnoreCase(search_word);
             if (compare == 0) {
                 return mid;
             }
@@ -29,7 +31,7 @@ public class DictionaryManagement {
         return -1;
     }
     
-     // phuong thuc lay ve chi so de them word vao dictionary theo thu tu abc
+     // phuong thuc lay ve chi so de them 1 word vao dictionary theo thu tu abc
     static int getAddedIndex(Dictionary dict, Word word, int beginIndex, int endIndex) {
         // neu word xep sau tu dung o vi tri endIndex trong tu dien
         if ( !dict.wordAt(endIndex).isGreaterThan(word) ) { 
@@ -50,7 +52,6 @@ public class DictionaryManagement {
         }
     }
 
-
 /*
     phuong thuc them word tu ban phim
     da cai tien ( them va sap xep theo thu tu abc..)
@@ -58,7 +59,6 @@ public class DictionaryManagement {
     public void insertFromCommandline(Dictionary dictionary) {
         System.out.print("Hay nhap tu moi: ");
         String newWord = scanner.next();
-        newWord = newWord.toLowerCase(); // chuyen ve chu thuong
         int matchIndex = getWordIndex(dictionary, newWord);
         if (matchIndex != -1) {
             System.out.println("Trong tu dien da co tu do!");
@@ -67,7 +67,7 @@ public class DictionaryManagement {
         System.out.print("Hay nhap nghia cua tu do: ");
         scanner.nextLine(); 
         String meaningWord = scanner.nextLine();
-        meaningWord = meaningWord.toLowerCase(); // chuyen ve chu thuong
+        meaningWord = meaningWord.trim();
         Word word = new Word(newWord, meaningWord);
         int dict_size = dictionary.getSize();
         int addedIndex = getAddedIndex(dictionary, word, 0, dict_size - 1);
@@ -80,7 +80,6 @@ public class DictionaryManagement {
     them tu dong thoi sap xep theo thu tu abc
  */
     public void insertFromFile(Dictionary dictionary) {
-        // tao ra doi tuong file
         File file = new File("dictionaries.txt");
         try( Scanner scanner = new Scanner(file) ) {
             String target = "";
@@ -102,7 +101,6 @@ public class DictionaryManagement {
     public void changeFromCommandline(Dictionary dictionary) {
         System.out.print("Nhap tu ban muon sua: ");
         String changedWord = scanner.next();
-        changedWord = changedWord.toLowerCase();
         int matchIndex = getWordIndex(dictionary, changedWord);
         // neu khong tim thay
         if (matchIndex == -1) {
@@ -148,7 +146,6 @@ public class DictionaryManagement {
     public void removeWord(Dictionary dictionary) {
         System.out.print("Nhap tu ban muon xoa: ");
         String removedWord = scanner.next();
-        removedWord = removedWord.toLowerCase();
         int matchIndex = getWordIndex(dictionary, removedWord);
         if (matchIndex == -1) {
             System.out.println("Tu nay khong co trong danh sach!");
@@ -167,22 +164,17 @@ public class DictionaryManagement {
         }
         dictionary.remove(matchIndex);
     }
-    // tra tu tuyet doi (chi cho ra 1 tu duy nhat)
-    public String dictionaryLookup(Dictionary dictionary, String Lookup) {
+    // tra tu chinh xac (chi cho ra 1 tu duy nhat)
+    public String dictionaryLookup(Dictionary dictionary) {
+        String Lookup = "";
+        System.out.print("Nhap chinh xac tu ban can tra: ");
+        Lookup = scanner.next();
         int matchIndex = getWordIndex(dictionary, Lookup);
         if (matchIndex == -1) {
             System.out.println("Khong ton tai tu do!");
             return null;
         }
         return dictionary.meaningAt(matchIndex);
-//        int size = dictionary.getSize();
-//        // sua thanh binary search
-//        for (int i = 0; i < size; i++) {
-//            if( word.equalsIgnoreCase(dictionary.wordTargetAt(i)) ) {
-//                return dictionary.meaningAt(i) ;
-//            }
-//        }
-//        return "Khong tim thay tu do!";
     }
     
     // ghi vao file
