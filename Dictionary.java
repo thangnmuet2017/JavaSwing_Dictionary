@@ -1,62 +1,112 @@
+package cmd_dictionary_2;
+
 import java.util.ArrayList;
 
+// class Dictionary
 public class Dictionary {
     private ArrayList<Word> listDictionary;
     private int size = 0;
 
-    // khoi tao khong tham so
+    // constructor
     public Dictionary() {
         ArrayList<Word> list = new ArrayList<>();
         this.listDictionary = list;
     }
-
+    
+    // lay ra kich thuoc
     public int getSize() {
         return size;
     }
 
-    public void updateSize() {
-        this.size = listDictionary.size();
-    }
-
-    // ham them mot tu moi vao cuoi tu dien
+    // them mot tu moi vao tu dien
     public void add( Word word) {
         listDictionary.add(word);
-        updateSize();
+        size++;
     }
-
-    // them mot tu vao vi tri index
+    
+    // them vao o mot vi tri cu the
     public void add(int index, Word word) {
         listDictionary.add(index, word);
-        updateSize();
+        size++;
     }
-
-    // ham tra ve tu tieng anh o vi tri index trong Dictionary
+    
+    // xoa tu o mot vi tri cu the
+    public void remove(int index) {
+        listDictionary.remove(index);
+        size--;
+    }
+    // lay ra tu can giai nghia o vi tri index
     public String wordTargetAt(int index) {
         return listDictionary.get(index).getWord_target();
     }
-
-    // ham tra ve nghia cua tu
-    public String wordExpainsAt(int index) {
+    
+    // lay ra giai nghia o vi tri index
+    public String meaningAt(int index) {
         return listDictionary.get(index).getWord_explain();
     }
 
-    // ham tra ve Word trong danh sach
+    // tra ve Word o vi tri index
     public Word wordAt(int index) {
         return listDictionary.get(index);
     }
 
-
     // ham in ra thong tin cua mot word
     public void showWord(int index) {
         String wordTarget = listDictionary.get(index).getWord_target();
-        String wordMeans = listDictionary.get(index).getWord_explain();
-        System.out.printf("%6d |%-12s |  %s \n", index +1, wordTarget, wordMeans);
+        String wordMeaning = listDictionary.get(index).getWord_explain();
+        System.out.printf("%-8d|%-25s|%s\n", index +1, wordTarget, wordMeaning);
 
     }
+}
 
-    // ham xoa mot tu trong danh sach
-    public void remove(int index) {
-        listDictionary.remove(index);
-        updateSize();
+// class Word
+class Word {
+    private String word_target;
+    private String word_explain;
+    // constructor
+    public Word(String word_target, String word_explain) {
+        this.word_target = word_target;
+        this.word_explain = word_explain;
+    }
+
+    public Word() {
+        this.word_target = "";
+        this.word_explain = "";
+    }
+    
+    // getter & setter
+    public String getWord_target() {
+        return word_target;
+    }
+
+    public void setWord_target(String word_target) {
+        this.word_target = word_target;
+    }
+
+    public String getWord_explain() {
+        return word_explain;
+    }
+
+    public void setWord_explain(String word_explain) {
+        this.word_explain = word_explain;
+    }
+    
+    // phuong thuc kiem tra word_target co dung sau word khong
+    public boolean isGreaterThan( Word word) {
+        int x = this.word_target.compareToIgnoreCase( word.word_target );
+        if (x > 0) return true;
+        return false;
+    }
+    
+    // kiem tra xem word_target co chua xau s hay khong
+    public boolean contains( String s){
+        int sizeS = s.length();
+        int sizeW = word_target.length();
+        if( sizeS > sizeW) return false;
+        else {
+            String smallWord = word_target.substring(0, sizeS);
+            return smallWord.equalsIgnoreCase(s);
+        }
+
     }
 }
