@@ -1,10 +1,8 @@
-package cmd_dictionary_2;
-
 import java.util.Scanner;
 
 public class DictionaryCommandline {
     static Scanner scanner = new Scanner(System.in);
-    
+
     // phuong thuc in ra Menu lua chon
     public void printMenu() {
         System.out.printf("%-35s","1. Tra tu chinh xac");

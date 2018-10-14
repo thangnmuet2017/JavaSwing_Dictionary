@@ -1,15 +1,13 @@
-package cmd_dictionary_2;
-
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class DictionaryManagement {
     Scanner scanner = new Scanner(System.in);
-/*    
-  phuong thuc tra ve chi so cua mot tu tieng Anh nao do 
-  trong danh sach cac tu tieng Anh cua dictionary
-*/
+    /*
+      phuong thuc tra ve chi so cua mot tu tieng Anh nao do
+      trong danh sach cac tu tieng Anh cua dictionary
+    */
     static int getWordIndex(Dictionary dict, String search_word) {
         // tim kiem khong phan biet chu hoa hay chu thuong
         int dict_size = dict.getSize();
@@ -30,21 +28,21 @@ public class DictionaryManagement {
         // neu nhu khong tim thay word trong dictionary thi tra ve -1
         return -1;
     }
-    
-     // phuong thuc lay ve chi so de them 1 word vao dictionary theo thu tu abc
+
+    // phuong thuc lay ve chi so de them 1 word vao dictionary theo thu tu abc
     static int getAddedIndex(Dictionary dict, Word word, int beginIndex, int endIndex) {
         // neu word xep sau tu dung o vi tri endIndex trong tu dien
-        if ( !dict.wordAt(endIndex).isGreaterThan(word) ) { 
-             return endIndex + 1;
+        if ( !dict.wordAt(endIndex).isGreaterThan(word) ) {
+            return endIndex + 1;
         }
         // neu word xep truoc tu dung o vi tri beginIndex trong tu dien
         if ( dict.wordAt(beginIndex).isGreaterThan(word) ) {
-             return beginIndex;
+            return beginIndex;
         }
         int mid = (beginIndex + endIndex)/2;
         // neu word dung sau dict[mid]
         if ( !dict.wordAt(mid).isGreaterThan(word) ) {
-             return getAddedIndex(dict, word, mid + 1, endIndex);
+            return getAddedIndex(dict, word, mid + 1, endIndex);
         }
         // neu word dung truoc dict[mid]
         else {
@@ -52,10 +50,10 @@ public class DictionaryManagement {
         }
     }
 
-/*
-    phuong thuc them word tu ban phim
-    da cai tien ( them va sap xep theo thu tu abc..)
- */
+    /*
+        phuong thuc them word tu ban phim
+        da cai tien ( them va sap xep theo thu tu abc..)
+     */
     public void insertFromCommandline(Dictionary dictionary) {
         System.out.print("Hay nhap tu moi: ");
         String newWord = scanner.nextLine();
@@ -75,10 +73,10 @@ public class DictionaryManagement {
         System.out.println("------------------------");
     }
 
-/*
-    Cai tien ham them tu file
-    them tu dong thoi sap xep theo thu tu abc
- */
+    /*
+        Cai tien ham them tu file
+        them tu dong thoi sap xep theo thu tu abc
+     */
     public void insertFromFile(Dictionary dictionary) {
         File file = new File("dictionaries.txt");
         // file dictionaries.txt da duoc sap xep theo thu tu abc truoc do
@@ -88,7 +86,7 @@ public class DictionaryManagement {
             while (scanner.hasNext()){
                 String curLine = scanner.nextLine(); // lay ra dong hien tai
                 // sau do tao mang String ngan cach boi dau tab
-                String[] splitted = curLine.split("\t"); 
+                String[] splitted = curLine.split("\t");
                 target = splitted[0].trim();
                 explain = splitted[1].trim();
                 Word newWord = new Word(target, explain);
@@ -97,7 +95,7 @@ public class DictionaryManagement {
         } catch (Exception e) {
         }
     }
-    
+
     // phuong thuc sua 1 tu trong tu dien
     public void changeFromCommandline(Dictionary dictionary) {
         System.out.print("Nhap tu ban muon sua: ");
@@ -109,7 +107,7 @@ public class DictionaryManagement {
             System.out.println("Tu nay khong co trong danh sach!");
             return;
         }
-        
+
         String oldTarget = dictionary.wordTargetAt(matchIndex);
         String editedTarget = "";
         int changeTarget = -1, changeExplain = -1;
@@ -130,7 +128,7 @@ public class DictionaryManagement {
             editedMeaning = editedMeaning.trim();
             dictionary.wordAt(matchIndex).setWord_explain(editedMeaning);
         }
-        
+
         // neu ta thay doi tu goc thi sau khi sua phai sap xep lai tu dien
         // con neu khong thay doi tu goc thi chi can set lai giai nghia
         if (changeTarget != 0) {
@@ -145,7 +143,7 @@ public class DictionaryManagement {
         }
         System.out.println("------------------------");
     }
-    
+
     // phuong thuc xoa 1 tu trong tu dien
     public void removeWord(Dictionary dictionary) {
         System.out.print("Nhap tu ban muon xoa: ");
@@ -160,7 +158,7 @@ public class DictionaryManagement {
         System.out.println("Da xoa!");
         System.out.println("------------------------");
     }
-    
+
     // phuong thuc xoa 1 tu cu the
     public void removeByKeyWord(Dictionary dictionary, String KeyWord) {
         int matchIndex = getWordIndex(dictionary, KeyWord);
@@ -182,19 +180,18 @@ public class DictionaryManagement {
         }
         return dictionary.meaningAt(matchIndex);
     }
-    
+
     // ghi vao file
     public void dictionaryExportToFile(Dictionary dictionary) {
         File file = new File("dictionaries.txt");
         int list_size = dictionary.getSize();
-            try (PrintWriter pw = new PrintWriter(file)) {
-                for (int i = 0; i < list_size; i++) {
-                    pw.print( dictionary.wordTargetAt(i) + "\t" );
-                    pw.println( dictionary.meaningAt(i) );
-                }
-            } catch (Exception e) {
+        try (PrintWriter pw = new PrintWriter(file)) {
+            for (int i = 0; i < list_size; i++) {
+                pw.print( dictionary.wordTargetAt(i) + "\t" );
+                pw.println( dictionary.meaningAt(i) );
             }
-       
+        } catch (Exception e) {
+        }
+
     }
 }
-
