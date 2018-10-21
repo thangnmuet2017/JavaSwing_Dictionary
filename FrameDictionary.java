@@ -2,9 +2,7 @@ package demodictionary;
 
 import java.util.*;
 import javax.swing.DefaultListModel;
-import java.io.*;
 import javax.swing.JOptionPane;
-
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 
@@ -18,7 +16,7 @@ public class FrameDictionary extends javax.swing.JFrame {
     private DictionaryCommandline commandline;
     private DictionaryManagement management;
     private ArrayList<Word> WordList; // luu tru danh sach cac tu tieng Anh
-    
+    private int matchIndex; // luu vi tri khi tim tu
     VoiceManager voice_manager;
     Voice voice;
     
@@ -50,6 +48,24 @@ public class FrameDictionary extends javax.swing.JFrame {
         ClearButton = new javax.swing.JButton();
         UpdateButton = new javax.swing.JButton();
         ExitButton = new javax.swing.JButton();
+        labelChangeWord = new javax.swing.JLabel();
+        labelChangeExplain = new javax.swing.JLabel();
+        AddtxtField = new javax.swing.JTextField();
+        ExplaintxtField = new javax.swing.JTextField();
+        buttonAcceptAdd = new javax.swing.JButton();
+        buttonCancelAdd = new javax.swing.JButton();
+        labelAddWord = new javax.swing.JLabel();
+        labelAddExplain = new javax.swing.JLabel();
+        ChangeExplaintxtField = new javax.swing.JTextField();
+        ChangeWordtxtField = new javax.swing.JTextField();
+        labelClear = new javax.swing.JLabel();
+        buttonAcceptChange = new javax.swing.JButton();
+        buttonCancelChange = new javax.swing.JButton();
+        CleartxtField = new javax.swing.JTextField();
+        buttonAcceptClear = new javax.swing.JButton();
+        buttonCancelClear = new javax.swing.JButton();
+        buttonCheckClear = new javax.swing.JButton();
+        buttonCheckChange = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -60,6 +76,7 @@ public class FrameDictionary extends javax.swing.JFrame {
                 formWindowOpened(evt);
             }
         });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         SearchField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         SearchField.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -67,6 +84,7 @@ public class FrameDictionary extends javax.swing.JFrame {
                 SearchFieldKeyTyped(evt);
             }
         });
+        getContentPane().add(SearchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 164, 30));
 
         EnglishList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -80,22 +98,27 @@ public class FrameDictionary extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(EnglishList);
 
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 164, 152));
+
         LabelTitle.setBackground(new java.awt.Color(204, 255, 204));
         LabelTitle.setFont(new java.awt.Font("Calibri", 1, 22)); // NOI18N
         LabelTitle.setForeground(new java.awt.Color(255, 0, 0));
         LabelTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         LabelTitle.setText("Từ điển Anh Việt");
         LabelTitle.setOpaque(true);
+        getContentPane().add(LabelTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 437, 43));
 
         jScrollPane2.setViewportView(ExplainPane);
 
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 110, 281, 152));
+
         TranslateButton.setText("Dịch");
-        TranslateButton.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         TranslateButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TranslateButtonMouseClicked(evt);
             }
         });
+        getContentPane().add(TranslateButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 70, 71, 30));
 
         SoundButton.setText("Phát âm");
         SoundButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -103,99 +126,153 @@ public class FrameDictionary extends javax.swing.JFrame {
                 SoundButtonMouseClicked(evt);
             }
         });
+        getContentPane().add(SoundButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 70, 80, 30));
 
         EnglishWordtxtField.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
+        getContentPane().add(EnglishWordtxtField, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 70, 146, 35));
 
-        labelSearch.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
+        labelSearch.setFont(new java.awt.Font("Arial", 3, 13)); // NOI18N
         labelSearch.setText("Nhập từ muốn tra vào đây");
-        labelSearch.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        getContentPane().add(labelSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, -1, 24));
 
         AddButton.setText("Thêm từ");
+        AddButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(AddButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 80, -1));
 
         ChangeButton.setText("Sửa từ");
+        ChangeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChangeButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(ChangeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 270, 70, -1));
 
         ClearButton.setText("Xóa từ");
+        ClearButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ClearButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(ClearButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 270, 90, -1));
 
-        UpdateButton.setText("Cập nhật");
+        UpdateButton.setText("Cập nhật từ điển");
+        UpdateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UpdateButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(UpdateButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 0, 120, 30));
 
         ExitButton.setText("Exit");
+        ExitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExitButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(ExitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        jLabel1.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/demodictionary/DictDemo.jpg"))); // NOI18N
+        labelChangeWord.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        labelChangeWord.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        labelChangeWord.setText("Từ cần sửa");
+        getContentPane().add(labelChangeWord, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 300, 70, 30));
+
+        labelChangeExplain.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        labelChangeExplain.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        labelChangeExplain.setText("Giải nghĩa");
+        getContentPane().add(labelChangeExplain, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 340, 70, 30));
+        getContentPane().add(AddtxtField, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, 170, 30));
+        getContentPane().add(ExplaintxtField, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, 170, 30));
+
+        buttonAcceptAdd.setText("Thêm");
+        buttonAcceptAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAcceptAddActionPerformed(evt);
+            }
+        });
+        getContentPane().add(buttonAcceptAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 380, 60, -1));
+
+        buttonCancelAdd.setText("Hủy");
+        buttonCancelAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCancelAddActionPerformed(evt);
+            }
+        });
+        getContentPane().add(buttonCancelAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 60, -1));
+
+        labelAddWord.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        labelAddWord.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        labelAddWord.setText("Từ mới");
+        getContentPane().add(labelAddWord, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 70, 30));
+
+        labelAddExplain.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        labelAddExplain.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        labelAddExplain.setText("Giải nghĩa");
+        getContentPane().add(labelAddExplain, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 70, 30));
+        getContentPane().add(ChangeExplaintxtField, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 340, 170, 30));
+        getContentPane().add(ChangeWordtxtField, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 300, 170, 30));
+
+        labelClear.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        labelClear.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        labelClear.setText("Từ cần xóa");
+        getContentPane().add(labelClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 300, 80, 30));
+
+        buttonAcceptChange.setText("Sửa");
+        buttonAcceptChange.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAcceptChangeActionPerformed(evt);
+            }
+        });
+        getContentPane().add(buttonAcceptChange, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 380, 60, -1));
+
+        buttonCancelChange.setText("Hủy");
+        buttonCancelChange.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCancelChangeActionPerformed(evt);
+            }
+        });
+        getContentPane().add(buttonCancelChange, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 380, 60, -1));
+        getContentPane().add(CleartxtField, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 300, 170, 30));
+
+        buttonAcceptClear.setText("Xóa");
+        buttonAcceptClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAcceptClearActionPerformed(evt);
+            }
+        });
+        getContentPane().add(buttonAcceptClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 380, 70, -1));
+
+        buttonCancelClear.setText("Hủy");
+        buttonCancelClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCancelClearActionPerformed(evt);
+            }
+        });
+        getContentPane().add(buttonCancelClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 380, 70, -1));
+
+        buttonCheckClear.setText("Check");
+        buttonCheckClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCheckClearActionPerformed(evt);
+            }
+        });
+        getContentPane().add(buttonCheckClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 380, 70, -1));
+
+        buttonCheckChange.setText("Check");
+        buttonCheckChange.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCheckChangeActionPerformed(evt);
+            }
+        });
+        getContentPane().add(buttonCheckChange, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 380, 70, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/demodictionary/translate.png"))); // NOI18N
         jLabel1.setText("jLabel1");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(labelSearch))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(SearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
-                .addComponent(TranslateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(EnglishWordtxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(143, 143, 143)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(354, 354, 354)
-                .addComponent(AddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(ChangeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(354, 354, 354)
-                .addComponent(ClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(UpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(ExitButton))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(110, 110, 110)
-                .addComponent(LabelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(491, 491, 491)
-                .addComponent(SoundButton))
-            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addComponent(labelSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(EnglishWordtxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(SearchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TranslateButton))))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(AddButton)
-                    .addComponent(ChangeButton))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ClearButton)
-                    .addComponent(UpdateButton))
-                .addGap(8, 8, 8)
-                .addComponent(ExitButton))
-            .addComponent(LabelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(91, 91, 91)
-                .addComponent(SoundButton))
-            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        jLabel1.setToolTipText("");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 970, 430));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -206,8 +283,8 @@ public class FrameDictionary extends javax.swing.JFrame {
         management = new DictionaryManagement();
         commandline = new DictionaryCommandline();
         management.insertFromFile(dictionary);
-        WordList = new ArrayList<Word>();
-        WordList = dictionary.getListDictionary();
+        //WordList = new ArrayList<Word>();
+        //WordList = dictionary.getListDictionary();
         int dict_size = dictionary.getSize();
         mod = new DefaultListModel<String>();
         EnglishList.setModel(mod);
@@ -215,6 +292,21 @@ public class FrameDictionary extends javax.swing.JFrame {
             mod.addElement(dictionary.wordTargetAt(i));
         }
         
+        AddtxtField.setEditable(false);
+        ExplaintxtField.setEditable(false);
+        buttonCancelAdd.setEnabled(false);
+        buttonAcceptAdd.setEnabled(false);
+        
+        ChangeWordtxtField.setEditable(false);
+        ChangeExplaintxtField.setEditable(false);
+        buttonCancelChange.setEnabled(false);
+        buttonAcceptChange.setEnabled(false);
+        buttonCheckChange.setEnabled(false);
+
+        CleartxtField.setEditable(false);
+        buttonCancelClear.setEnabled(false);
+        buttonAcceptClear.setEnabled(false);
+        buttonCheckClear.setEnabled(false);
     }//GEN-LAST:event_formWindowOpened
 
     private void SearchFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchFieldKeyTyped
@@ -268,9 +360,182 @@ public class FrameDictionary extends javax.swing.JFrame {
         voice.speak(soundString);
     }//GEN-LAST:event_SoundButtonMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
+    private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_ExitButtonActionPerformed
+    // nut them tu
+    private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
+        AddtxtField.setEditable(true);
+        ExplaintxtField.setEditable(true);
+        buttonCancelAdd.setEnabled(true);
+        buttonAcceptAdd.setEnabled(true);
+        ChangeButton.setEnabled(false);
+        ClearButton.setEnabled(false);
+    }//GEN-LAST:event_AddButtonActionPerformed
+    // nut huy them
+    private void buttonCancelAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelAddActionPerformed
+        AddtxtField.setText("");
+        ExplaintxtField.setText("");
+        AddtxtField.setEditable(false);
+        ExplaintxtField.setEditable(false);
+        buttonCancelAdd.setEnabled(false);
+        buttonAcceptAdd.setEnabled(false);
+        ChangeButton.setEnabled(true);
+        ClearButton.setEnabled(true);
+    }//GEN-LAST:event_buttonCancelAddActionPerformed
+    // nut xac nhan them
+    private void buttonAcceptAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAcceptAddActionPerformed
+        if (AddtxtField.getText().equals("") || ExplaintxtField.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Bạn chưa điền đầy đủ!");
+        }
+        else {
+            String add = AddtxtField.getText().trim();
+            String explain = ExplaintxtField.getText().trim();
+            if (DictionaryManagement.getWordIndex(dictionary, add) != -1) {
+                JOptionPane.showMessageDialog(null, "Từ này đã có trong danh sách!");
+                AddtxtField.setText("");
+                ExplaintxtField.setText("");
+            }
+            else {
+                Word word  = new Word(add, explain);
+                int size = dictionary.getSize();
+                int index = DictionaryManagement.getAddedIndex(dictionary, word, 0 , size - 1);
+                dictionary.add(index, word);
+                JOptionPane.showMessageDialog(null, "Đã thêm!");
+                AddtxtField.setText("");
+                ExplaintxtField.setText("");
+            }
+        }
+//        int size = WordList.size();
+//        System.out.println(WordList.get( size - 1).getWord_target());
+//        System.out.println(WordList.get( size - 1).getWord_explain());
+    }//GEN-LAST:event_buttonAcceptAddActionPerformed
+
+    private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
+        management.dictionaryExportToFile(dictionary);
+        management.insertFromFile(dictionary);
+        int dict_size = dictionary.getSize();
+        //mod = new DefaultListModel<String>();
+        mod.removeAllElements(); // xoa het cac danh sach cu tren list;
+        EnglishList.setModel(mod);
+        for (int i = 0; i < dict_size; i++) {
+            mod.addElement(dictionary.wordTargetAt(i));
+        }
+        JOptionPane.showMessageDialog(null, "Đã cập nhật thành công!");
+    }//GEN-LAST:event_UpdateButtonActionPerformed
+
+    private void ChangeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChangeButtonActionPerformed
+        ChangeWordtxtField.setEditable(true);
+        //ChangeExplaintxtField.setEditable(true);
+        buttonCancelChange.setEnabled(true);
+        buttonCheckChange.setEnabled(true);
+        AddButton.setEnabled(false);
+        ClearButton.setEnabled(false);
+    }//GEN-LAST:event_ChangeButtonActionPerformed
+
+    private void buttonCancelChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelChangeActionPerformed
+        ChangeWordtxtField.setText("");
+        ChangeExplaintxtField.setText("");
+        ChangeWordtxtField.setEditable(false);
+        ChangeExplaintxtField.setEditable(false);
+        buttonCancelChange.setEnabled(false);
+        buttonAcceptChange.setEnabled(false);
+        buttonCheckChange.setEnabled(false);
+        AddButton.setEnabled(true);
+        ClearButton.setEnabled(true);
+    }//GEN-LAST:event_buttonCancelChangeActionPerformed
+
+    private void buttonAcceptChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAcceptChangeActionPerformed
+        if (ChangeWordtxtField.getText().equals("") || ChangeExplaintxtField.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Bạn chưa điền đầy đủ!");
+        }
+        else {
+            String change = ChangeWordtxtField.getText();
+            String explain = ChangeExplaintxtField.getText();
+            System.out.println(ChangeWordtxtField.getText());
+            System.out.println(ChangeExplaintxtField.getText());
+            Word word  = new Word(change, explain);
+            dictionary.remove(matchIndex);
+            int size = dictionary.getSize();
+            int index = DictionaryManagement.getAddedIndex(dictionary, word, 0 , size - 1);
+            dictionary.add(index, word);
+            JOptionPane.showMessageDialog(null, "Đã sửa!");
+            ChangeWordtxtField.setText("");
+            ChangeExplaintxtField.setText("");
+            buttonAcceptChange.setEnabled(false);
+        }
+    }//GEN-LAST:event_buttonAcceptChangeActionPerformed
+
+    private void ClearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearButtonActionPerformed
+        CleartxtField.setEditable(true);
+        buttonCancelClear.setEnabled(true);
+        buttonCheckClear.setEnabled(true);
+        AddButton.setEnabled(false);
+        ChangeButton.setEnabled(false);
+    }//GEN-LAST:event_ClearButtonActionPerformed
+
+    private void buttonCancelClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelClearActionPerformed
+        CleartxtField.setText("");
+        CleartxtField.setEditable(false);
+        buttonCancelClear.setEnabled(false);
+        buttonAcceptClear.setEnabled(false);
+        buttonCheckClear.setEnabled(false);
+        AddButton.setEnabled(true);
+        ChangeButton.setEnabled(true);
+    }//GEN-LAST:event_buttonCancelClearActionPerformed
+
+    private void buttonAcceptClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAcceptClearActionPerformed
+        dictionary.remove(matchIndex);
+        JOptionPane.showMessageDialog(null, "Đã xóa!");
+        CleartxtField.setText("");
+        buttonAcceptClear.setEnabled(false);
+    }//GEN-LAST:event_buttonAcceptClearActionPerformed
+
+    private void buttonCheckClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCheckClearActionPerformed
+        String clear = CleartxtField.getText();
+        if (clear.equals("")) {
+            JOptionPane.showMessageDialog(null, "Bạn chưa nhập vào!");
+        }
+        else {
+            clear = clear.trim();
+            if (DictionaryManagement.getWordIndex(dictionary, clear) == -1) {
+                JOptionPane.showMessageDialog(null, "Từ này không có trong danh sách!");
+                CleartxtField.setText("");
+            }
+            else {
+                matchIndex = DictionaryManagement.getWordIndex(dictionary, clear);
+                buttonAcceptClear.setEnabled(true);
+                CleartxtField.setText(dictionary.wordTargetAt(matchIndex));
+            }
+        }
+        
+    }//GEN-LAST:event_buttonCheckClearActionPerformed
+
+    private void buttonCheckChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCheckChangeActionPerformed
+        String change = ChangeWordtxtField.getText();
+        if (change.equals("")) {
+            JOptionPane.showMessageDialog(null, "Bạn chưa nhập vào!");
+        }
+        else {
+            change = change.trim();
+            if (DictionaryManagement.getWordIndex(dictionary, change) == -1) {
+                JOptionPane.showMessageDialog(null, "Từ này không có trong danh sách!");
+                ChangeWordtxtField.setText("");
+                //ChangeExplaintxtField.setText("");
+            }
+            else {
+                matchIndex = DictionaryManagement.getWordIndex(dictionary, change);
+                buttonAcceptChange.setEnabled(true);
+                ChangeExplaintxtField.setEditable(true);
+                ChangeWordtxtField.setText(dictionary.wordTargetAt(matchIndex));
+                ChangeExplaintxtField.setText(dictionary.meaningAt(matchIndex));
+                System.out.println(ChangeWordtxtField.getText());
+                System.out.println(ChangeExplaintxtField.getText());
+            }
+        }
+    }//GEN-LAST:event_buttonCheckChangeActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -305,20 +570,44 @@ public class FrameDictionary extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddButton;
+    private javax.swing.JTextField AddtxtField;
     private javax.swing.JButton ChangeButton;
+    private javax.swing.JTextField ChangeExplaintxtField;
+    private javax.swing.JTextField ChangeWordtxtField;
     private javax.swing.JButton ClearButton;
+    private javax.swing.JTextField CleartxtField;
     private javax.swing.JList<String> EnglishList;
     private javax.swing.JTextField EnglishWordtxtField;
     private javax.swing.JButton ExitButton;
     private javax.swing.JTextPane ExplainPane;
+    private javax.swing.JTextField ExplaintxtField;
     private javax.swing.JLabel LabelTitle;
     private javax.swing.JTextField SearchField;
     private javax.swing.JButton SoundButton;
     private javax.swing.JButton TranslateButton;
     private javax.swing.JButton UpdateButton;
+    private javax.swing.JButton buttonAcceptAdd;
+    private javax.swing.JButton buttonAcceptChange;
+    private javax.swing.JButton buttonAcceptClear;
+    private javax.swing.JButton buttonCancelAdd;
+    private javax.swing.JButton buttonCancelChange;
+    private javax.swing.JButton buttonCancelClear;
+    private javax.swing.JButton buttonCheckChange;
+    private javax.swing.JButton buttonCheckClear;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel labelAddExplain;
+    private javax.swing.JLabel labelAddWord;
+    private javax.swing.JLabel labelChangeExplain;
+    private javax.swing.JLabel labelChangeWord;
+    private javax.swing.JLabel labelClear;
     private javax.swing.JLabel labelSearch;
     // End of variables declaration//GEN-END:variables
+
+//    @Override
+//    public void actionPerformed(ActionEvent e) {
+//        
+//    }
+    
 }

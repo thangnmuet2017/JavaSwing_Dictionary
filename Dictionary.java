@@ -26,7 +26,10 @@ public class Dictionary {
     public int getSize() {
         return size;
     }
-
+    public void setSize(int size) {
+        this.size = size;
+    }
+    
     // them mot tu moi vao tu dien
     public void add( Word word) {
         listDictionary.add(word);
