@@ -8,7 +8,7 @@ public class DictionaryManagement {
       phuong thuc tra ve chi so cua mot tu tieng Anh nao do
       trong danh sach cac tu tieng Anh cua dictionary
     */
-    static int getWordIndex(Dictionary dict, String search_word) {
+    static int getWordIndex(MyDictionary dict, String search_word) {
         // tim kiem khong phan biet chu hoa hay chu thuong
         int dict_size = dict.getSize();
         int left = 0, right = dict_size - 1;
@@ -29,8 +29,16 @@ public class DictionaryManagement {
         return -1;
     }
 
+    public String getNghia ( MyDictionary dictionary, String search_word ) {
+        int index = getWordIndex(dictionary, search_word);
+        if ( index == -1) return  "";
+        else {
+            return dictionary.meaningAt(index);
+        }
+    }
+
     // phuong thuc lay ve chi so de them 1 word vao dictionary theo thu tu abc
-    static int getAddedIndex(Dictionary dict, Word word, int beginIndex, int endIndex) {
+    static int getAddedIndex(MyDictionary dict, Word word, int beginIndex, int endIndex) {
         // neu word xep sau tu dung o vi tri endIndex trong tu dien
         if ( !dict.wordAt(endIndex).isGreaterThan(word) ) {
             return endIndex + 1;
@@ -54,7 +62,7 @@ public class DictionaryManagement {
         phuong thuc them word tu ban phim
         da cai tien ( them va sap xep theo thu tu abc..)
      */
-    public void insertFromCommandline(Dictionary dictionary) {
+    public void insertFromCommandline(MyDictionary dictionary) {
         System.out.print("Hay nhap tu moi: ");
         String newWord = scanner.nextLine();
         newWord = newWord.trim(); // cat het khoang trang thua
@@ -77,7 +85,7 @@ public class DictionaryManagement {
         Cai tien ham them tu file
         them tu dong thoi sap xep theo thu tu abc
      */
-    public void insertFromFile(Dictionary dictionary) {
+    public void insertFromFile(MyDictionary dictionary) {
         File file = new File("dictionaries.txt");
         // file dictionaries.txt da duoc sap xep theo thu tu abc truoc do
         try( Scanner scanner = new Scanner(file) ) {
@@ -97,7 +105,7 @@ public class DictionaryManagement {
     }
 
     // phuong thuc sua 1 tu trong tu dien
-    public void changeFromCommandline(Dictionary dictionary) {
+    public void changeFromCommandline(MyDictionary dictionary) {
         System.out.print("Nhap tu ban muon sua: ");
         String changedWord = scanner.nextLine();
         changedWord = changedWord.trim();
@@ -145,7 +153,7 @@ public class DictionaryManagement {
     }
 
     // phuong thuc xoa 1 tu trong tu dien
-    public void removeWord(Dictionary dictionary) {
+    public void removeWord(MyDictionary dictionary) {
         System.out.print("Nhap tu ban muon xoa: ");
         String removedWord = scanner.nextLine();
         removedWord = removedWord.trim();
@@ -160,7 +168,7 @@ public class DictionaryManagement {
     }
 
     // phuong thuc xoa 1 tu cu the
-    public void removeByKeyWord(Dictionary dictionary, String KeyWord) {
+    public void removeByKeyWord(MyDictionary dictionary, String KeyWord) {
         int matchIndex = getWordIndex(dictionary, KeyWord);
         if (matchIndex == -1) {
             return;
@@ -168,7 +176,7 @@ public class DictionaryManagement {
         dictionary.remove(matchIndex);
     }
     // tra tu chinh xac (chi cho ra 1 tu duy nhat)
-    public String dictionaryLookup(Dictionary dictionary) {
+    public String dictionaryLookup(MyDictionary dictionary) {
         String Lookup = "";
         System.out.print("Nhap chinh xac tu ban can tra: ");
         Lookup = scanner.nextLine();
@@ -182,7 +190,7 @@ public class DictionaryManagement {
     }
 
     // ghi vao file
-    public void dictionaryExportToFile(Dictionary dictionary) {
+    public void dictionaryExportToFile(MyDictionary dictionary) {
         File file = new File("dictionaries.txt");
         int list_size = dictionary.getSize();
         try (PrintWriter pw = new PrintWriter(file)) {
