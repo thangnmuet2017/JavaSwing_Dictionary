@@ -327,7 +327,6 @@ medium	(n) tam trung, trung gian
 meet	(v) gap go
 meeting	(n) buoi gap go
 message	(n) tin nhan
-messi	(n) la cau thu so mot the gioi
 metal	(n) kim loai
 meter	(n) don vi Met
 middle name	(n) ten dem
