@@ -17,7 +17,7 @@ public class DictionaryCommandline {
     }
 
     // ham in ra toan bo tu dien
-    public void showAllWords(Dictionary dictionary) {
+    public void showAllWords(MyDictionary dictionary) {
         int size = dictionary.getSize();
         if( size > 0 ) {
             System.out.printf("%-8s|%-25s|%s\n", "No", "English", "Vietnamese");
@@ -32,12 +32,29 @@ public class DictionaryCommandline {
     }
 
     // tra tu mot cach tuong doi
-    public Dictionary dictionarySearcher( Dictionary dictionary ) {
+    public MyDictionary dictionarySearcher( MyDictionary dictionary ) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Nhap tu muon tra : ");
         String s = scanner.nextLine();
         s = s.trim();
-        Dictionary newDictionary = new Dictionary();
+        MyDictionary newDictionary = new MyDictionary();
+        int size = dictionary.getSize();
+        for(int i = 0; i < size; i++ ) {
+            Word iter_word = dictionary.wordAt(i);
+            if( iter_word.contains(s) ) {
+                newDictionary.add(iter_word);
+            }
+            else {
+                int compare = iter_word.getWord_target().compareToIgnoreCase(s);
+                if (compare > 0) break;
+            }
+        }
+        return newDictionary;
+    }
+
+    public MyDictionary dictionarySearcher( String s, MyDictionary dictionary ) {
+        s = s.trim();
+        MyDictionary newDictionary = new MyDictionary();
         int size = dictionary.getSize();
         for(int i = 0; i < size; i++ ) {
             Word iter_word = dictionary.wordAt(i);

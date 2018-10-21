@@ -4,7 +4,7 @@ public class Cmd_Dictionary_2 {
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        Dictionary dictionary = new Dictionary();
+        MyDictionary dictionary = new MyDictionary();
         DictionaryManagement management = new DictionaryManagement();
         DictionaryCommandline commandline = new DictionaryCommandline();
         management.insertFromFile(dictionary); // lay du lieu tu file "dictionaries.txt"
@@ -30,7 +30,7 @@ public class Cmd_Dictionary_2 {
                     scanner.nextLine();
                     break;
                 case ( "2" ) : // tra tu mot cach tuong doi
-                    Dictionary sub_dictionary = commandline.dictionarySearcher(dictionary);
+                    MyDictionary sub_dictionary = commandline.dictionarySearcher(dictionary);
                     commandline.showAllWords(sub_dictionary);
                     System.out.println("Vui long nhan phim Enter!");
                     scanner.nextLine();
